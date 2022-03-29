@@ -7,6 +7,7 @@ class bmp180_sqlite3:
         self.con = sqlite3.connect(os.path.dirname(__file__) + "/bmp180.db")
         self.cursor = self.con.cursor()
         self.device = device
+        self.create_db()
 
 
     def create_db(self):
@@ -24,12 +25,13 @@ class bmp180_sqlite3:
 
 
     def insert(self, temp, pressure):
+        print(temp, pressure)
         # assert float(temp) == True
         # assert float(pressure) == True
 
         self.cursor.execute(f"INSERT INTO bmp180_readings(temperature_data, "
-                             "pressure-data, measurement_datetime, device) "
-                             'VALUES (?, ?, datetime("now"),?;',
+                             "pressure_data, measurement_datetime, device) "
+                             'VALUES (?, ?, datetime("now"),?);',
                              (temp, pressure, self.device))
         self.con.commit()
 
@@ -47,6 +49,6 @@ class bmp180_sqlite3:
 
 if __name__ == "__main__":
     sql = bmp180_sqlite3("test")
-    sql.create_db()
+    sql.insert(22,22)
     print(sql.get_1_row())
-    sql.con.close()
+    sql.close_db()
