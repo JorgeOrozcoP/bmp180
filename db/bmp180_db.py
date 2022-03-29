@@ -24,8 +24,8 @@ class bmp180_sqlite3:
 
 
     def insert(self, temp, pressure):
-        assert float(temp) == True
-        assert float(pressure) == True
+        # assert float(temp) == True
+        # assert float(pressure) == True
 
         self.cursor.execute(f"INSERT INTO bmp180_readings(temperature_data, "
                              "pressure-data, measurement_datetime, device) "
