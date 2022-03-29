@@ -8,13 +8,24 @@ class bmp180_sqlite3:
         self.cursor = self.con.cursor()
         self.device = device
 
+
+    def create_db(self):
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS bmp180_readings("
+                            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                            "temperature_data NUMERIC, "
+                            "pressure_data NUMERIC, "
+                            "measurement_datetime DATETIME, "
+                            "device TEXT);")
+        self.con.commit()
+
     def insert(self, temp, pressure):
         assert float(temp) == True
         assert float(pressure) == True
 
-        self.cursor.execute(f"INSERT INTO bmp180_readings(temperature_data, " \
-                             "pressure-data, datetime, device) VALUES (?, ?, "\
-                             'datetime("now"),?;', (temp, press, self.device))
+        self.cursor.execute(f"INSERT INTO bmp180_readings(temperature_data, "
+                             "pressure-data, measurement_datetime, device) "
+                             'VALUES (?, ?, datetime("now"),?;',
+                             (temp, pressure, self.device))
         self.con.commit()
 
 
@@ -23,7 +34,7 @@ class bmp180_sqlite3:
         return self.cursor.fetchall()
 
     def get_last_n_rows(self, n):
-        self.cursor.execute("SELECT * FROM bmp180_readings ORDER BY datetime" \
+        self.cursor.execute("SELECT * FROM bmp180_readings ORDER BY measurement_datetime"
                             " ASC LIMIT ?;", (n))
         return self.cursor.fetchall()
 
@@ -31,5 +42,6 @@ class bmp180_sqlite3:
 
 if __name__ == "__main__":
     sql = bmp180_sqlite3("test")
+    sql.create_db()
     print(sql.get_1_row())
     sql.con.close()
