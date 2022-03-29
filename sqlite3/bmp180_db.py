@@ -18,6 +18,11 @@ class bmp180_sqlite3:
                             "device TEXT);")
         self.con.commit()
 
+
+    def close_db(self):
+        self.con.close()
+
+
     def insert(self, temp, pressure):
         assert float(temp) == True
         assert float(pressure) == True
