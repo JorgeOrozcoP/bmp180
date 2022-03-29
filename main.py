@@ -7,7 +7,7 @@
 ########################################################################
 from lcd1602.PCF8574 import PCF8574_GPIO
 from lcd1602.Adafruit_LCD1602 import Adafruit_CharLCD
-from bmp180_2 import readBmp180
+from bmp180.bmp180_2 import readBmp180
 
 from time import sleep
 # from datetime import datetime
@@ -52,8 +52,9 @@ def loop(mcp, lcd, buttonPin):
         sleep(0.5)
 
 
-def destroy():
+def destroy(mcp, lcd):
     lcd.clear()
+    mcp.output(3,0)
     GPIO.cleanup()
 
 
@@ -87,4 +88,4 @@ if __name__ == '__main__':
     try:
         loop(mcp, lcd, buttonPin)
     except KeyboardInterrupt:
-        destroy()
+        destroy(mcp, lcd)
