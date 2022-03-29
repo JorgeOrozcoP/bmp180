@@ -22,7 +22,7 @@ def loop(mcp, lcd, buttonPin, db):
 
     sleeping_period = 0.5  # seconds
     light_max_time = 5  # seconds
-    period_until_db_write = 10 # 60 * 30 # seconds
+    period_until_db_write = 60 * 30 # seconds
     read_data_period = 1  # seconds
 
     pressed_button = False
