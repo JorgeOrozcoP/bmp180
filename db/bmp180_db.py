@@ -25,7 +25,7 @@ class bmp180_sqlite3:
 
 
     def insert(self, temp, pressure):
-        print(temp, pressure)
+        # print(temp, pressure)
         # assert float(temp) == True
         # assert float(pressure) == True
 
